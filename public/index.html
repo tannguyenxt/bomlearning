@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>VioQuiz – Luyện thi Lớp 5</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;500;600;700;800&family=Nunito:wght@400;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/css/style.css" />
+</head>
+<body>
+
+<!-- ── SCREEN: HOME ── -->
+<div id="screen-home" class="screen active">
+  <div class="home-bg">
+    <div class="star s1">⭐</div>
+    <div class="star s2">🌟</div>
+    <div class="star s3">✨</div>
+    <div class="star s4">⭐</div>
+    <div class="star s5">🌟</div>
+  </div>
+  <div class="home-container">
+    <div class="logo-wrap">
+      <div class="logo-icon">🏆</div>
+      <h1 class="logo-text">VioQuiz</h1>
+      <p class="logo-sub">Luyện thi thông minh – Lớp 5</p>
+    </div>
+
+    <div class="name-box">
+      <label>Nhập tên của em:</label>
+      <input type="text" id="student-name" placeholder="Ví dụ: Nguyễn Văn An" maxlength="40" />
+    </div>
+
+    <h2 class="section-title">Chọn môn học</h2>
+    <div id="subject-grid" class="subject-grid"></div>
+
+    <div class="config-row">
+      <div class="config-item">
+        <label>Số câu hỏi</label>
+        <select id="question-count">
+          <option value="10">10 câu</option>
+          <option value="20" selected>20 câu</option>
+          <option value="30">30 câu</option>
+          <option value="50">50 câu</option>
+        </select>
+      </div>
+      <div class="config-item">
+        <label>Thời gian</label>
+        <select id="time-limit">
+          <option value="0">Không giới hạn</option>
+          <option value="600">10 phút</option>
+          <option value="900" selected>15 phút</option>
+          <option value="1800">30 phút</option>
+          <option value="3600">60 phút</option>
+        </select>
+      </div>
+    </div>
+
+    <button id="btn-start" class="btn-start" onclick="startQuiz()">
+      🚀 Bắt đầu thi!
+    </button>
+
+    <div class="leaderboard-preview">
+      <h3>🏅 Bảng xếp hạng</h3>
+      <div id="leaderboard-list"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ── SCREEN: QUIZ ── -->
+<div id="screen-quiz" class="screen">
+  <div class="quiz-header">
+    <div class="quiz-progress-info">
+      <span id="q-current">1</span>/<span id="q-total">20</span>
+    </div>
+    <div class="quiz-subject-label" id="quiz-subject-label"></div>
+    <div id="timer-display" class="timer-display">⏱ <span id="timer-text">00:00</span></div>
+  </div>
+  <div class="progress-bar-wrap">
+    <div class="progress-bar-fill" id="progress-bar"></div>
+  </div>
+
+  <div class="quiz-body">
+    <div class="question-card" id="question-card">
+      <div class="question-number" id="question-number">Câu 1</div>
+      <div class="question-text" id="question-text"></div>
+      <div class="options-grid" id="options-grid"></div>
+    </div>
+
+    <div class="quiz-nav">
+      <button class="btn-nav btn-prev" id="btn-prev" onclick="prevQuestion()">← Trước</button>
+      <div class="nav-dots" id="nav-dots"></div>
+      <button class="btn-nav btn-next" id="btn-next" onclick="nextQuestion()">Tiếp →</button>
+    </div>
+
+    <button class="btn-submit" id="btn-submit" onclick="submitQuiz()" style="display:none">
+      ✅ Nộp bài
+    </button>
+  </div>
+</div>
+
+<!-- ── SCREEN: RESULT ── -->
+<div id="screen-result" class="screen">
+  <div class="result-container">
+    <div class="result-trophy" id="result-trophy">🏆</div>
+    <h2 class="result-title" id="result-title">Kết quả</h2>
+    <div class="result-score" id="result-score"></div>
+    <div class="result-meta" id="result-meta"></div>
+    <div class="result-bar-wrap">
+      <div class="result-bar-fill" id="result-bar"></div>
+    </div>
+
+    <div class="result-actions">
+      <button class="btn-action btn-retry" onclick="retryQuiz()">🔄 Làm lại</button>
+      <button class="btn-action btn-home" onclick="goHome()">🏠 Trang chủ</button>
+      <button class="btn-action btn-review" onclick="showReview()">📋 Xem đáp án</button>
+    </div>
+
+    <div id="review-panel" class="review-panel" style="display:none"></div>
+  </div>
+</div>
+
+<script src="/js/app.js"></script>
+</body>
+</html>

@@ -1,0 +1,212 @@
+{
+  "subjects": [
+    {
+      "id": "math",
+      "name": "Toán học",
+      "name_en": "Math",
+      "icon": "🔢",
+      "color": "#FF6B6B",
+      "topics": [
+        {
+          "id": "addition_subtraction",
+          "name": "Cộng và Trừ",
+          "questions": [
+            { "id": "m1", "text": "345 + 678 = ?", "options": ["1023", "1013", "1033", "1003"], "answer": 0 },
+            { "id": "m2", "text": "1000 - 437 = ?", "options": ["573", "563", "563", "553"], "answer": 0 },
+            { "id": "m3", "text": "2456 + 1389 = ?", "options": ["3845", "3745", "3855", "3835"], "answer": 0 },
+            { "id": "m4", "text": "5000 - 2348 = ?", "options": ["2652", "2642", "2662", "2752"], "answer": 0 },
+            { "id": "m5", "text": "789 + 456 + 123 = ?", "options": ["1368", "1378", "1358", "1388"], "answer": 0 },
+            { "id": "m6", "text": "3724 - 1856 = ?", "options": ["1868", "1878", "1858", "1968"], "answer": 0 },
+            { "id": "m7", "text": "9999 - 4567 = ?", "options": ["5432", "5422", "5442", "5532"], "answer": 0 }
+          ]
+        },
+        {
+          "id": "multiplication",
+          "name": "Nhân và Chia",
+          "questions": [
+            { "id": "m8", "text": "45 × 23 = ?", "options": ["1035", "1025", "1045", "1055"], "answer": 0 },
+            { "id": "m9", "text": "360 ÷ 12 = ?", "options": ["30", "25", "35", "40"], "answer": 0 },
+            { "id": "m10", "text": "67 × 8 = ?", "options": ["536", "526", "546", "556"], "answer": 0 },
+            { "id": "m11", "text": "144 ÷ 9 = ?", "options": ["16", "14", "18", "12"], "answer": 0 },
+            { "id": "m12", "text": "35 × 12 = ?", "options": ["420", "410", "430", "440"], "answer": 0 },
+            { "id": "m13", "text": "252 ÷ 7 = ?", "options": ["36", "34", "38", "32"], "answer": 0 },
+            { "id": "m14", "text": "124 × 5 = ?", "options": ["620", "610", "630", "640"], "answer": 0 }
+          ]
+        },
+        {
+          "id": "fractions",
+          "name": "Phân số",
+          "questions": [
+            { "id": "m15", "text": "1/2 + 1/3 = ?", "options": ["5/6", "2/5", "2/6", "3/5"], "answer": 0 },
+            { "id": "m16", "text": "3/4 - 1/4 = ?", "options": ["1/2", "2/4", "1/4", "3/8"], "answer": 0 },
+            { "id": "m17", "text": "2/3 × 3/4 = ?", "options": ["1/2", "6/12", "5/7", "2/4"], "answer": 0 },
+            { "id": "m18", "text": "Phân số nào lớn hơn? 3/5 hay 2/3?", "options": ["2/3", "3/5", "Bằng nhau", "Không so sánh được"], "answer": 0 },
+            { "id": "m19", "text": "5/6 + 1/3 = ?", "options": ["7/6", "6/9", "6/6", "4/9"], "answer": 0 },
+            { "id": "m20", "text": "4/5 - 2/10 = ?", "options": ["3/5", "2/5", "6/10", "8/15"], "answer": 0 }
+          ]
+        },
+        {
+          "id": "geometry",
+          "name": "Hình học",
+          "questions": [
+            { "id": "m21", "text": "Diện tích hình vuông cạnh 7cm là?", "options": ["49 cm²", "28 cm²", "14 cm²", "56 cm²"], "answer": 0 },
+            { "id": "m22", "text": "Chu vi hình tròn có bán kính 5cm là? (π ≈ 3.14)", "options": ["31.4 cm", "78.5 cm", "15.7 cm", "25 cm"], "answer": 0 },
+            { "id": "m23", "text": "Diện tích hình chữ nhật dài 8cm, rộng 5cm là?", "options": ["40 cm²", "26 cm²", "13 cm²", "80 cm²"], "answer": 0 },
+            { "id": "m24", "text": "Tam giác đều có cạnh 6cm, chu vi là?", "options": ["18 cm", "12 cm", "24 cm", "36 cm"], "answer": 0 },
+            { "id": "m25", "text": "Hình vuông có diện tích 64cm², cạnh dài bao nhiêu?", "options": ["8 cm", "16 cm", "4 cm", "32 cm"], "answer": 0 },
+            { "id": "m26", "text": "Diện tích hình thang đáy lớn 10cm, đáy nhỏ 6cm, chiều cao 4cm?", "options": ["32 cm²", "40 cm²", "24 cm²", "16 cm²"], "answer": 0 }
+          ]
+        },
+        {
+          "id": "word_problems",
+          "name": "Bài toán có lời văn",
+          "questions": [
+            { "id": "m27", "text": "Một cửa hàng có 240 quyển sách, bán đi 3/8 số sách. Hỏi còn lại bao nhiêu quyển?", "options": ["150", "90", "120", "160"], "answer": 0 },
+            { "id": "m28", "text": "Lớp 5A có 35 học sinh. Số học sinh nữ nhiều hơn nam 5 em. Hỏi lớp có bao nhiêu học sinh nam?", "options": ["15", "20", "10", "25"], "answer": 0 },
+            { "id": "m29", "text": "Một xe máy đi 60 km/h trong 3 giờ. Hỏi đi được bao nhiêu km?", "options": ["180 km", "63 km", "20 km", "57 km"], "answer": 0 },
+            { "id": "m30", "text": "Mua 5 quyển vở hết 35.000đ. Hỏi mua 8 quyển vở hết bao nhiêu tiền?", "options": ["56.000đ", "48.000đ", "40.000đ", "64.000đ"], "answer": 0 },
+            { "id": "m31", "text": "Vườn nhà có 120 cây, trong đó 2/5 là cây ăn quả. Hỏi có bao nhiêu cây ăn quả?", "options": ["48", "72", "60", "36"], "answer": 0 }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "math_english",
+      "name": "Toán Tiếng Anh",
+      "name_en": "Math in English",
+      "icon": "🧮",
+      "color": "#4ECDC4",
+      "topics": [
+        {
+          "id": "numbers",
+          "name": "Numbers & Operations",
+          "questions": [
+            { "id": "me1", "text": "What is 25% of 200?", "options": ["50", "40", "60", "25"], "answer": 0 },
+            { "id": "me2", "text": "What is the square root of 81?", "options": ["9", "7", "8", "6"], "answer": 0 },
+            { "id": "me3", "text": "345 × 6 = ?", "options": ["2070", "2060", "2080", "2090"], "answer": 0 },
+            { "id": "me4", "text": "If a dozen eggs costs $2.40, how much does one egg cost?", "options": ["$0.20", "$0.24", "$0.12", "$0.30"], "answer": 0 },
+            { "id": "me5", "text": "What is the value of 2³ + 3²?", "options": ["17", "13", "19", "15"], "answer": 0 },
+            { "id": "me6", "text": "Round 4,567 to the nearest hundred.", "options": ["4,600", "4,500", "4,570", "5,000"], "answer": 0 },
+            { "id": "me7", "text": "What is 0.75 as a fraction in simplest form?", "options": ["3/4", "6/8", "75/100", "7/10"], "answer": 0 }
+          ]
+        },
+        {
+          "id": "geometry_eng",
+          "name": "Geometry",
+          "questions": [
+            { "id": "me8", "text": "A rectangle has a length of 12 cm and width of 7 cm. What is the area?", "options": ["84 cm²", "38 cm²", "74 cm²", "76 cm²"], "answer": 0 },
+            { "id": "me9", "text": "How many sides does a pentagon have?", "options": ["5", "6", "4", "7"], "answer": 0 },
+            { "id": "me10", "text": "What is the perimeter of a square with side 9 cm?", "options": ["36 cm", "81 cm", "18 cm", "27 cm"], "answer": 0 },
+            { "id": "me11", "text": "A triangle has angles of 60° and 80°. What is the third angle?", "options": ["40°", "50°", "30°", "60°"], "answer": 0 },
+            { "id": "me12", "text": "What is the volume of a cube with side 4 cm?", "options": ["64 cm³", "16 cm³", "48 cm³", "32 cm³"], "answer": 0 },
+            { "id": "me13", "text": "The diameter of a circle is 10 cm. What is the radius?", "options": ["5 cm", "10 cm", "20 cm", "2.5 cm"], "answer": 0 }
+          ]
+        },
+        {
+          "id": "word_problems_eng",
+          "name": "Word Problems",
+          "questions": [
+            { "id": "me14", "text": "A train travels at 80 km/h. How far will it travel in 2.5 hours?", "options": ["200 km", "160 km", "180 km", "240 km"], "answer": 0 },
+            { "id": "me15", "text": "Tom has 48 stickers and gives 1/4 to his friend. How many does he have left?", "options": ["36", "12", "24", "40"], "answer": 0 },
+            { "id": "me16", "text": "A book costs $15. If there is a 20% discount, what is the sale price?", "options": ["$12", "$13", "$14", "$11"], "answer": 0 },
+            { "id": "me17", "text": "If 3 pens cost $4.50, how much do 7 pens cost?", "options": ["$10.50", "$9.00", "$12.00", "$8.50"], "answer": 0 },
+            { "id": "me18", "text": "A class has 30 students. 60% are girls. How many boys are there?", "options": ["12", "18", "15", "20"], "answer": 0 },
+            { "id": "me19", "text": "A pool holds 5,000 liters. It fills at 250 liters per minute. How many minutes to fill?", "options": ["20", "25", "15", "30"], "answer": 0 }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "vietnamese",
+      "name": "Tiếng Việt",
+      "name_en": "Vietnamese",
+      "icon": "📖",
+      "color": "#FFE66D",
+      "topics": [
+        {
+          "id": "grammar",
+          "name": "Ngữ pháp",
+          "questions": [
+            { "id": "v1", "text": "Từ nào dưới đây là danh từ?", "options": ["Học sinh", "Chạy nhanh", "Đẹp đẽ", "Vui vẻ"], "answer": 0 },
+            { "id": "v2", "text": "Câu nào dưới đây là câu ghép?", "options": ["Mặt trời mọc và chim hót líu lo.", "Em đi học.", "Hoa nở đẹp.", "Trời mưa to."], "answer": 0 },
+            { "id": "v3", "text": "Từ 'chạy' trong câu 'Con chó chạy nhanh' thuộc từ loại gì?", "options": ["Động từ", "Danh từ", "Tính từ", "Phó từ"], "answer": 0 },
+            { "id": "v4", "text": "Dấu câu nào dùng để kết thúc câu hỏi?", "options": ["Dấu ?", "Dấu .", "Dấu !", "Dấu ,"], "answer": 0 },
+            { "id": "v5", "text": "Từ nào viết đúng chính tả?", "options": ["Quyển sách", "Quyển xách", "Quyển sạch", "Quyển xạch"], "answer": 0 },
+            { "id": "v6", "text": "Chủ ngữ trong câu 'Những bông hoa nở rộ vào mùa xuân' là?", "options": ["Những bông hoa", "nở rộ", "mùa xuân", "vào mùa xuân"], "answer": 0 },
+            { "id": "v7", "text": "Từ 'xinh xắn' thuộc loại từ ghép gì?", "options": ["Từ ghép láy", "Từ ghép có nghĩa", "Từ đơn", "Từ phức"], "answer": 0 }
+          ]
+        },
+        {
+          "id": "reading",
+          "name": "Đọc hiểu",
+          "questions": [
+            { "id": "v8", "text": "Tác phẩm 'Dế Mèn phiêu lưu ký' là của tác giả nào?", "options": ["Tô Hoài", "Nam Cao", "Nguyễn Du", "Nguyễn Tuân"], "answer": 0 },
+            { "id": "v9", "text": "Truyện 'Thánh Gióng' thuộc thể loại nào?", "options": ["Truyền thuyết", "Cổ tích", "Thần thoại", "Ngụ ngôn"], "answer": 0 },
+            { "id": "v10", "text": "'Sơn Tinh, Thủy Tinh' là truyện gì?", "options": ["Truyền thuyết", "Truyện cổ tích", "Truyện ngụ ngôn", "Truyện thần thoại"], "answer": 0 },
+            { "id": "v11", "text": "Trong truyện 'Cây tre trăm đốt', ai đã giúp anh Khoai?", "options": ["Ông Bụt", "Tiên nữ", "Rồng vàng", "Thần linh"], "answer": 0 },
+            { "id": "v12", "text": "Từ đồng nghĩa với 'vui vẻ' là?", "options": ["Hạnh phúc", "Buồn bã", "Lo lắng", "Tức giận"], "answer": 0 }
+          ]
+        },
+        {
+          "id": "spelling",
+          "name": "Chính tả và từ vựng",
+          "questions": [
+            { "id": "v13", "text": "Chọn từ viết đúng chính tả:", "options": ["Nghiên cứu", "Nghiêng cứu", "Nghiêm cứu", "Nghiền cứu"], "answer": 0 },
+            { "id": "v14", "text": "Từ trái nghĩa với 'cao' là?", "options": ["Thấp", "Lùn", "Ngắn", "Nhỏ"], "answer": 0 },
+            { "id": "v15", "text": "Điền vào chỗ trống: 'Học ....' (chăm chỉ học tập)", "options": ["hành", "hỏi", "bài", "tập"], "answer": 0 },
+            { "id": "v16", "text": "Từ nào là từ láy?", "options": ["Xinh xắn", "Học sinh", "Sách vở", "Bàn ghế"], "answer": 0 },
+            { "id": "v17", "text": "Chọn nghĩa đúng của thành ngữ 'Nước đổ lá khoai':", "options": ["Làm không có kết quả", "Nước chảy tràn qua lá", "Mưa to", "Làm việc vất vả"], "answer": 0 },
+            { "id": "v18", "text": "Từ nào điền vào câu: 'Tiếng mưa _____ trên mái nhà'?", "options": ["rào rào", "ào ào", "lả lả", "tí tách"], "answer": 3 }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "english",
+      "name": "Tiếng Anh",
+      "name_en": "English",
+      "icon": "🌍",
+      "color": "#A8E6CF",
+      "topics": [
+        {
+          "id": "vocabulary",
+          "name": "Vocabulary",
+          "questions": [
+            { "id": "e1", "text": "What is the opposite of 'happy'?", "options": ["Sad", "Glad", "Joyful", "Excited"], "answer": 0 },
+            { "id": "e2", "text": "Which word means a place where books are kept?", "options": ["Library", "Bakery", "Factory", "Hospital"], "answer": 0 },
+            { "id": "e3", "text": "What do you call a person who teaches at school?", "options": ["Teacher", "Doctor", "Driver", "Chef"], "answer": 0 },
+            { "id": "e4", "text": "Which animal lives in the sea and has eight legs?", "options": ["Octopus", "Elephant", "Eagle", "Tiger"], "answer": 0 },
+            { "id": "e5", "text": "What is the plural of 'child'?", "options": ["Children", "Childs", "Childes", "Childrens"], "answer": 0 },
+            { "id": "e6", "text": "Choose the correct spelling:", "options": ["Beautiful", "Beautifull", "Beutiful", "Beautifal"], "answer": 0 },
+            { "id": "e7", "text": "What season comes after summer?", "options": ["Autumn", "Winter", "Spring", "Monsoon"], "answer": 0 }
+          ]
+        },
+        {
+          "id": "grammar_eng",
+          "name": "Grammar",
+          "questions": [
+            { "id": "e8", "text": "Choose the correct sentence:", "options": ["She goes to school every day.", "She go to school every day.", "She going to school every day.", "She gone to school every day."], "answer": 0 },
+            { "id": "e9", "text": "Fill in the blank: 'I ___ a student.'", "options": ["am", "is", "are", "be"], "answer": 0 },
+            { "id": "e10", "text": "Which is the correct past tense of 'run'?", "options": ["Ran", "Runned", "Run", "Runed"], "answer": 0 },
+            { "id": "e11", "text": "Choose the correct article: '___ apple a day keeps the doctor away.'", "options": ["An", "A", "The", "No article"], "answer": 0 },
+            { "id": "e12", "text": "The sentence 'Tom plays football.' is in which tense?", "options": ["Simple Present", "Simple Past", "Future", "Present Continuous"], "answer": 0 },
+            { "id": "e13", "text": "Choose the correct comparative: 'She is ___ than her sister.'", "options": ["taller", "more tall", "tallest", "most tall"], "answer": 0 }
+          ]
+        },
+        {
+          "id": "reading_eng",
+          "name": "Reading Comprehension",
+          "questions": [
+            { "id": "e14", "text": "What does 'enormous' mean?", "options": ["Very large", "Very small", "Very fast", "Very slow"], "answer": 0 },
+            { "id": "e15", "text": "What is the synonym of 'begin'?", "options": ["Start", "End", "Finish", "Stop"], "answer": 0 },
+            { "id": "e16", "text": "If you 'purchase' something, you ___.", "options": ["Buy it", "Sell it", "Break it", "Borrow it"], "answer": 0 },
+            { "id": "e17", "text": "Which word best completes: 'The weather is very ___ today — the sun is shining brightly.'", "options": ["Sunny", "Cloudy", "Rainy", "Stormy"], "answer": 0 },
+            { "id": "e18", "text": "What is the antonym of 'ancient'?", "options": ["Modern", "Old", "Historic", "Classic"], "answer": 0 },
+            { "id": "e19", "text": "If you feel 'anxious', you feel ___.", "options": ["Worried", "Happy", "Hungry", "Tired"], "answer": 0 },
+            { "id": "e20", "text": "The word 'swift' means ___.", "options": ["Fast", "Slow", "Quiet", "Loud"], "answer": 0 }
+          ]
+        }
+      ]
+    }
+  ]
+}
