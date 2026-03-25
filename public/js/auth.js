@@ -159,8 +159,16 @@ function doLogout() {
   currentUser = null;
   closeDropdown();
   renderGuestHeader();
+  // Reset student name field
+  const nameEl = document.getElementById('student-name');
+  if (nameEl) nameEl.value = '';
+  // Reset student name box label
   showToast('Đã đăng xuất 👋');
-  goHome();
+  // Show login screen after brief delay
+  setTimeout(() => {
+    showScreen('home');
+    openAuth('login');
+  }, 600);
 }
 
 // ── PROFILE ───────────────────────────────────────────────────────────────────

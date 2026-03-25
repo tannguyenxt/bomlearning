@@ -26,7 +26,7 @@ body {
 }
 
 /* ── SCREENS ── */
-.screen { display: none; min-height: 100vh; }
+.screen { display: none; }
 .screen.active { display: block; }
 
 /* ═══════════════════ HOME ═══════════════════ */
@@ -53,10 +53,10 @@ body {
 .home-container {
   position: relative; z-index: 1;
   max-width: 760px; margin: 0 auto;
-  padding: 2rem 1.5rem 4rem;
+  padding: 2rem 1.5rem 2rem;
 }
 
-.logo-wrap { text-align: center; padding: 2.5rem 0 2rem; }
+.logo-wrap { text-align: center; padding: 1rem 0 1.5rem; }
 .logo-icon { font-size: 5rem; display: block; animation: bounce 2s infinite; }
 @keyframes bounce {
   0%, 100% { transform: translateY(0); }
@@ -267,7 +267,7 @@ body {
 }
 .result-container {
   max-width: 600px; width: 100%; margin: 0 auto;
-  padding: 2rem 1.5rem 4rem; text-align: center;
+  padding: 2rem 1.5rem 3rem; text-align: center;
 }
 .result-trophy { font-size: 5rem; display: block; margin-bottom: 0.5rem; animation: trophySpin 1s ease; }
 @keyframes trophySpin { from { transform: scale(0) rotate(-180deg); } to { transform: scale(1) rotate(0deg); } }
@@ -282,7 +282,7 @@ body {
 .result-bar-wrap { height: 16px; background: rgba(255,255,255,0.3); border-radius: 8px; margin-bottom: 1.5rem; overflow: hidden; }
 .result-bar-fill { height: 100%; border-radius: 8px; background: linear-gradient(90deg, var(--accent2), var(--accent3)); transition: width 1s ease; }
 
-.result-actions { display: flex; gap: 0.75rem; flex-wrap: wrap; justify-content: center; margin-bottom: 1.5rem; }
+.result-actions { display: flex; gap: 0.75rem; flex-wrap: wrap; justify-content: center; margin-bottom: 1rem; }
 .btn-action {
   padding: 0.9rem 1.5rem; border-radius: 14px; border: none; cursor: pointer;
   font-family: 'Baloo 2', cursive; font-size: 1rem; font-weight: 700;
