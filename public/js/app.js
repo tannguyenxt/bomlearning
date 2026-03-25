@@ -322,7 +322,8 @@ function formatTime(s) {
 
 function showScreen(name) {
   document.querySelectorAll('.screen').forEach(el => el.classList.remove('active'));
-  document.getElementById(`screen-${name}`).classList.add('active');
+  const el = document.getElementById(`screen-${name}`);
+  if (el) el.classList.add('active');
   window.scrollTo(0, 0);
 }
 

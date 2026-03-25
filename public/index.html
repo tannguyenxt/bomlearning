@@ -1,34 +1,88 @@
 <!DOCTYPE html>
 <html lang="vi">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Bom - you can do it!</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;500;600;700;800&family=Nunito:wght@400;600;700&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="/css/style.css" />
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>VioQuiz – Luyện thi Lớp 5</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;500;600;700;800&family=Nunito:wght@400;600;700&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="/css/style.css"/>
+  <link rel="stylesheet" href="/css/auth.css"/>
 </head>
 <body>
+
+<!-- ── HEADER ── -->
+<header class="app-header" id="app-header">
+  <a class="header-logo" href="/">🏆 VioQuiz</a>
+  <div class="header-right" id="header-right">
+    <button class="btn-header-login" onclick="openAuth('login')">Đăng nhập</button>
+    <button class="btn-header-login" style="background:var(--primary);color:#fff;border-color:var(--primary)" onclick="openAuth('register')">Đăng ký</button>
+  </div>
+</header>
+
+<!-- ── AUTH MODAL ── -->
+<div class="modal-overlay hidden" id="auth-modal" onclick="handleModalClick(event)">
+  <div class="auth-modal">
+    <div class="auth-logo">
+      <div class="auth-logo-icon">🏆</div>
+      <div class="auth-logo-title">VioQuiz</div>
+      <div class="auth-logo-sub">Luyện thi thông minh – Lớp 5</div>
+    </div>
+    <div class="auth-tabs">
+      <button class="auth-tab active" id="tab-login" onclick="switchTab('login')">Đăng nhập</button>
+      <button class="auth-tab" id="tab-register" onclick="switchTab('register')">Đăng ký</button>
+    </div>
+    <div id="auth-message"></div>
+
+    <!-- Login form -->
+    <div id="form-login">
+      <div class="form-group">
+        <label>Email</label>
+        <input type="email" id="login-email" placeholder="email@example.com" autocomplete="email"/>
+      </div>
+      <div class="form-group">
+        <label>Mật khẩu</label>
+        <input type="password" id="login-password" placeholder="Nhập mật khẩu" autocomplete="current-password"/>
+      </div>
+      <button class="btn-auth" onclick="doLogin()">Đăng nhập →</button>
+    </div>
+
+    <!-- Register form -->
+    <div id="form-register" style="display:none">
+      <div class="form-group">
+        <label>Họ và tên</label>
+        <input type="text" id="reg-name" placeholder="Nguyễn Văn An"/>
+      </div>
+      <div class="form-group">
+        <label>Email</label>
+        <input type="email" id="reg-email" placeholder="email@example.com" autocomplete="email"/>
+      </div>
+      <div class="form-group">
+        <label>Mật khẩu</label>
+        <input type="password" id="reg-password" placeholder="Tối thiểu 6 ký tự" autocomplete="new-password"/>
+        <div class="input-hint">Tối thiểu 6 ký tự</div>
+      </div>
+      <button class="btn-auth" onclick="doRegister()">Tạo tài khoản →</button>
+    </div>
+  </div>
+</div>
 
 <!-- ── SCREEN: HOME ── -->
 <div id="screen-home" class="screen active">
   <div class="home-bg">
-    <div class="star s1">⭐</div>
-    <div class="star s2">🌟</div>
-    <div class="star s3">✨</div>
-    <div class="star s4">⭐</div>
-    <div class="star s5">🌟</div>
+    <div class="star s1">⭐</div><div class="star s2">🌟</div>
+    <div class="star s3">✨</div><div class="star s4">⭐</div><div class="star s5">🌟</div>
   </div>
   <div class="home-container">
     <div class="logo-wrap">
       <div class="logo-icon">🏆</div>
-      <h1 class="logo-text">Bom Learning</h1>
-      <p class="logo-sub">You can do it!</p>
+      <h1 class="logo-text">VioQuiz</h1>
+      <p class="logo-sub">Luyện thi thông minh – Lớp 5</p>
     </div>
 
     <div class="name-box">
-      <label>Nhập tên của em:</label>
-      <input type="text" id="student-name" placeholder="Ví dụ: Nguyễn Xuân Bom" maxlength="40" />
+      <label>Tên học sinh:</label>
+      <input type="text" id="student-name" placeholder="Ví dụ: Nguyễn Văn An" maxlength="40"/>
     </div>
 
     <h2 class="section-title">Chọn môn học</h2>
@@ -55,11 +109,7 @@
         </select>
       </div>
     </div>
-
-    <button id="btn-start" class="btn-start" onclick="startQuiz()">
-      🚀 Bắt đầu thi!
-    </button>
-
+    <button class="btn-start" onclick="startQuiz()">🚀 Bắt đầu thi!</button>
     <div class="leaderboard-preview">
       <h3>🏅 Bảng xếp hạng</h3>
       <div id="leaderboard-list"></div>
@@ -70,32 +120,23 @@
 <!-- ── SCREEN: QUIZ ── -->
 <div id="screen-quiz" class="screen">
   <div class="quiz-header">
-    <div class="quiz-progress-info">
-      <span id="q-current">1</span>/<span id="q-total">20</span>
-    </div>
+    <div class="quiz-progress-info"><span id="q-current">1</span>/<span id="q-total">20</span></div>
     <div class="quiz-subject-label" id="quiz-subject-label"></div>
     <div id="timer-display" class="timer-display">⏱ <span id="timer-text">00:00</span></div>
   </div>
-  <div class="progress-bar-wrap">
-    <div class="progress-bar-fill" id="progress-bar"></div>
-  </div>
-
+  <div class="progress-bar-wrap"><div class="progress-bar-fill" id="progress-bar"></div></div>
   <div class="quiz-body">
     <div class="question-card" id="question-card">
       <div class="question-number" id="question-number">Câu 1</div>
       <div class="question-text" id="question-text"></div>
       <div class="options-grid" id="options-grid"></div>
     </div>
-
     <div class="quiz-nav">
       <button class="btn-nav btn-prev" id="btn-prev" onclick="prevQuestion()">← Trước</button>
       <div class="nav-dots" id="nav-dots"></div>
       <button class="btn-nav btn-next" id="btn-next" onclick="nextQuestion()">Tiếp →</button>
     </div>
-
-    <button class="btn-submit" id="btn-submit" onclick="submitQuiz()" style="display:none">
-      ✅ Nộp bài
-    </button>
+    <button class="btn-submit" id="btn-submit" onclick="submitQuiz()" style="display:none">✅ Nộp bài</button>
   </div>
 </div>
 
@@ -106,20 +147,110 @@
     <h2 class="result-title" id="result-title">Kết quả</h2>
     <div class="result-score" id="result-score"></div>
     <div class="result-meta" id="result-meta"></div>
-    <div class="result-bar-wrap">
-      <div class="result-bar-fill" id="result-bar"></div>
-    </div>
-
+    <div class="result-bar-wrap"><div class="result-bar-fill" id="result-bar"></div></div>
     <div class="result-actions">
       <button class="btn-action btn-retry" onclick="retryQuiz()">🔄 Làm lại</button>
       <button class="btn-action btn-home" onclick="goHome()">🏠 Trang chủ</button>
       <button class="btn-action btn-review" onclick="showReview()">📋 Xem đáp án</button>
     </div>
-
     <div id="review-panel" class="review-panel" style="display:none"></div>
   </div>
 </div>
 
+<!-- ── SCREEN: PROFILE ── -->
+<div id="screen-profile" class="screen">
+  <div class="profile-container">
+    <div style="display:flex;align-items:center;gap:1rem;margin-bottom:1.5rem">
+      <button onclick="goHome()" style="background:none;border:none;font-size:1.5rem;cursor:pointer">←</button>
+      <div class="profile-title" style="margin:0">👤 Hồ sơ cá nhân</div>
+    </div>
+
+    <!-- Avatar -->
+    <div class="profile-card">
+      <div class="profile-card-title">📸 Ảnh đại diện</div>
+      <div class="avatar-section">
+        <div class="avatar-preview" id="avatar-preview" onclick="document.getElementById('avatar-input').click()">
+          <img id="avatar-img" src="" alt="" style="width:100%;height:100%;object-fit:cover;display:none"/>
+          <span id="avatar-initials">A</span>
+        </div>
+        <div class="avatar-info">
+          <strong>Nhấn để thay đổi ảnh</strong>
+          Chỉ chấp nhận JPG hoặc PNG<br/>
+          Kích thước tối đa: <strong>20KB</strong>
+        </div>
+        <input type="file" id="avatar-input" accept="image/jpeg,image/png" style="display:none" onchange="uploadAvatar(event)"/>
+      </div>
+      <div id="avatar-msg"></div>
+    </div>
+
+    <!-- Basic info -->
+    <div class="profile-card">
+      <div class="profile-card-title">📋 Thông tin cơ bản</div>
+      <div class="form-group">
+        <label>Họ và tên</label>
+        <input type="text" id="p-fullname" placeholder="Nguyễn Văn An"/>
+      </div>
+      <div class="form-group">
+        <label>Email (không thể thay đổi)</label>
+        <input type="email" id="p-email" disabled style="background:#F8F6FF;color:#999"/>
+      </div>
+      <div class="form-grid">
+        <div class="form-group">
+          <label>Số điện thoại phụ huynh</label>
+          <input type="tel" id="p-phone" placeholder="0901234567"/>
+        </div>
+        <div class="form-group">
+          <label>Lớp</label>
+          <input type="text" id="p-class" placeholder="vd: 5A, 5B1"/>
+        </div>
+      </div>
+      <div class="form-group">
+        <label>Trường</label>
+        <input type="text" id="p-school" placeholder="Trường Tiểu học..."/>
+      </div>
+    </div>
+
+    <!-- Location -->
+    <div class="profile-card">
+      <div class="profile-card-title">📍 Địa chỉ <small style="font-weight:400;font-size:.75rem;color:var(--muted)">(Cập nhật theo phân chia hành chính 1/7/2025)</small></div>
+      <div class="form-group">
+        <label>Tỉnh / Thành phố</label>
+        <select id="p-province" onchange="loadWards()">
+          <option value="">-- Chọn tỉnh/thành phố --</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>Phường / Xã</label>
+        <select id="p-ward" disabled>
+          <option value="">-- Chọn tỉnh trước --</option>
+        </select>
+      </div>
+    </div>
+
+    <!-- Save -->
+    <div style="display:flex;gap:1rem;flex-wrap:wrap">
+      <button class="btn-save" onclick="saveProfile()">💾 Lưu thông tin</button>
+    </div>
+    <div id="profile-msg" style="margin-top:1rem"></div>
+
+    <!-- Change password -->
+    <div class="profile-card" style="margin-top:1rem">
+      <div class="profile-card-title">🔒 Đổi mật khẩu</div>
+      <div class="form-group">
+        <label>Mật khẩu hiện tại</label>
+        <input type="password" id="p-cur-pwd" placeholder="Mật khẩu hiện tại"/>
+      </div>
+      <div class="form-group">
+        <label>Mật khẩu mới</label>
+        <input type="password" id="p-new-pwd" placeholder="Tối thiểu 6 ký tự"/>
+      </div>
+      <button class="btn-save" onclick="changePassword()">🔑 Đổi mật khẩu</button>
+      <div id="pwd-msg" style="margin-top:.75rem"></div>
+    </div>
+  </div>
+</div>
+
+<script src="/js/auth.js"></script>
 <script src="/js/app.js"></script>
 </body>
 </html>
