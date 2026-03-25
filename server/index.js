@@ -413,6 +413,60 @@ app.delete('/api/questions/:id', adminRequired, async (req, res) => {
   res.json({ success: true });
 });
 
+
+// ═══════════════════════════════════════════════════════════════════════════════
+// LOCATION API PROXY – tinhthanhpho.com (cấu trúc mới sau 1/7/2025)
+// Gọi từ server để tránh CORS, cache trong memory để giảm latency
+// ═══════════════════════════════════════════════════════════════════════════════
+const locationCache = { provinces: null, wards: {} };
+const LOCATION_BASE = 'https://tinhthanhpho.com/api/v1';
+
+// Fetch tất cả trang (API trả 20 kết quả/trang, dùng limit=100)
+async function fetchAllPages(url) {
+  const results = [];
+  let page = 1;
+  while (true) {
+    const res  = await fetch(`${url}?limit=100&page=${page}`);
+    if (!res.ok) throw new Error(`HTTP ${res.status}`);
+    const json = await res.json();
+    const data = json.data || [];
+    results.push(...data);
+    const total = (json.metadata || {}).total || 0;
+    if (results.length >= total || data.length === 0) break;
+    page++;
+  }
+  return results;
+}
+
+// GET /api/location/provinces
+app.get('/api/location/provinces', async (req, res) => {
+  try {
+    if (!locationCache.provinces) {
+      const data = await fetchAllPages(`${LOCATION_BASE}/new-provinces`);
+      locationCache.provinces = data.map(p => ({ code: p.code, name: p.name, type: p.type }));
+    }
+    res.json({ success: true, data: locationCache.provinces });
+  } catch (err) {
+    console.error('Province fetch error:', err.message);
+    res.status(502).json({ success: false, error: 'Không tải được danh sách tỉnh/thành' });
+  }
+});
+
+// GET /api/location/wards/:provinceCode
+app.get('/api/location/wards/:provinceCode', async (req, res) => {
+  const { provinceCode } = req.params;
+  try {
+    if (!locationCache.wards[provinceCode]) {
+      const data = await fetchAllPages(`${LOCATION_BASE}/new-provinces/${provinceCode}/wards`);
+      locationCache.wards[provinceCode] = data.map(w => ({ code: w.code, name: w.name, type: w.type }));
+    }
+    res.json({ success: true, data: locationCache.wards[provinceCode] });
+  } catch (err) {
+    console.error(`Ward fetch [${provinceCode}] error:`, err.message);
+    res.status(502).json({ success: false, error: 'Không tải được danh sách phường/xã' });
+  }
+});
+
 // Multer error handler
 app.use((err, req, res, next) => {
   if (err.code === 'LIMIT_FILE_SIZE') return res.status(400).json({ error: 'File quá lớn! Giới hạn 20KB' });
