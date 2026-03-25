@@ -1,6 +1,4 @@
 // ── VioQuiz Auth & Profile ─────────────────────────────────────────────────
-// API tỉnh/phường: huynhminhvangit.github.io/vn-region-api (cập nhật 1/7/2025)
-const PROVINCE_API = 'https://huynhminhvangit.github.io/vn-region-api';
 
 let currentUser = null;
 let provincesCache = null;
@@ -202,20 +200,55 @@ async function loadProfileData() {
   }
 }
 
-// ── PROVINCES / WARDS (API 34 tỉnh sau 1/7/2025) ─────────────────────────────
+// ── PROVINCES / WARDS ────────────────────────────────────────────────────────
+// Nguồn 1: huynhminhvangit.github.io/vn-region-api  (GitHub Pages → trả HTML)
+// Nguồn 2: provinces.open-api.vn  (fallback JSON thuần)
+// Nguồn 3: PROVINCE_FALLBACK hardcode (offline)
+
+const VN_API_1 = 'https://huynhminhvangit.github.io/vn-region-api';
+const VN_API_2 = 'https://provinces.open-api.vn/api';
+
+// Parse JSON từ HTML trả về bởi GitHub Pages API
+// Dữ liệu nằm trong <pre>...</pre> hoặc <pre class="...">...</pre>
+function extractJsonFromHtml(html) {
+  // Thử <pre>...</pre> trước (đây là format của vn-region-api)
+  const preMatch = html.match(/<pre[^>]*>([\s\S]*?)<\/pre>/i);
+  if (preMatch) {
+    try { return JSON.parse(preMatch[1].trim()); } catch {}
+  }
+  // Thử tìm array JSON lớn nhất trong trang (greedy match)
+  const arrMatch = html.match(/(\[[\s\S]+\])/);
+  if (arrMatch) {
+    try { return JSON.parse(arrMatch[1]); } catch {}
+  }
+  return null;
+}
+
 async function loadProvinces() {
   if (provincesCache) { renderProvinceSelect(provincesCache); return; }
   try {
-    const res  = await fetch(`${PROVINCE_API}/data/provinces.json`);
-    const data = await res.json();
-    // Normalize: array of {code, name, ...}
-    provincesCache = Array.isArray(data) ? data : (data.data || []);
-    renderProvinceSelect(provincesCache);
-  } catch (err) {
-    console.warn('Province API error, using fallback list');
-    provincesCache = PROVINCE_FALLBACK;
-    renderProvinceSelect(provincesCache);
+    // Nguồn 1: provinces.json trả về JSON thuần
+    const res  = await fetch(`${VN_API_1}/data/provinces.json`);
+    const text = await res.text();
+    let data;
+    try { data = JSON.parse(text); }           // JSON thuần
+    catch { data = extractJsonFromHtml(text); } // HTML wrapper
+    if (!data || !data.length) throw new Error('empty');
+    provincesCache = data.map(p => ({ code: String(p.code), name: p.name }));
+  } catch {
+    try {
+      // Nguồn 2: open-api.vn
+      const res2 = await fetch(`${VN_API_2}/?depth=1`);
+      const data2 = await res2.json();
+      provincesCache = (Array.isArray(data2) ? data2 : [])
+        .map(p => ({ code: String(p.code), name: p.name }));
+    } catch {
+      // Nguồn 3: hardcode fallback
+      console.warn('Dùng danh sách tỉnh/thành offline');
+      provincesCache = PROVINCE_FALLBACK;
+    }
   }
+  renderProvinceSelect(provincesCache);
 }
 
 function renderProvinceSelect(provinces) {
@@ -229,40 +262,63 @@ function renderProvinceSelect(provinces) {
 async function loadWards(preselect = null) {
   const provinceCode = document.getElementById('p-province').value;
   const wardSel      = document.getElementById('p-ward');
+
   if (!provinceCode) {
     wardSel.innerHTML = '<option value="">-- Chọn tỉnh trước --</option>';
     wardSel.disabled  = true;
     return;
   }
+
   wardSel.disabled  = true;
-  wardSel.innerHTML = '<option>Đang tải...</option>';
+  wardSel.innerHTML = '<option>⏳ Đang tải phường/xã...</option>';
 
   try {
     if (!wardsCache[provinceCode]) {
-      // Try the vn-region-api
-      const res  = await fetch(`${PROVINCE_API}/api/wards.html?province_code=${provinceCode}`);
-      const text = await res.text();
-      // The API returns HTML page with embedded JSON for GitHub Pages
-      // Try to parse JSON directly first
-      let wards;
+      let wards = null;
+
+      // ── Nguồn 1: vn-region-api (GitHub Pages, trả HTML) ──────────────────
       try {
-        wards = JSON.parse(text);
-      } catch {
-        // Extract JSON from HTML
-        const match = text.match(/\[[\s\S]*?\]/);
-        wards = match ? JSON.parse(match[0]) : [];
+        const res  = await fetch(`${VN_API_1}/api/wards.html?province_code=${provinceCode}`);
+        const text = await res.text();
+        // GitHub Pages API nhúng JSON trong <pre>...</pre>
+        const parsed = extractJsonFromHtml(text);
+        if (Array.isArray(parsed) && parsed.length > 0) wards = parsed;
+      } catch {}
+
+      // ── Nguồn 2: open-api.vn (JSON thuần, depth=2 lấy wards) ─────────────
+      if (!wards || wards.length === 0) {
+        try {
+          const res2  = await fetch(`${VN_API_2}/p/${provinceCode}?depth=2`);
+          const data2 = await res2.json();
+          // Cấu trúc: { districts: [{ wards: [...] }] }
+          const allWards = [];
+          (data2.districts || []).forEach(d => {
+            (d.wards || []).forEach(w => allWards.push({ code: String(w.code), name: w.name }));
+          });
+          if (allWards.length > 0) wards = allWards;
+        } catch {}
       }
-      wardsCache[provinceCode] = Array.isArray(wards) ? wards : (wards.data || wards.wards || []);
+
+      wardsCache[provinceCode] = (wards || []).map(w => ({
+        code: String(w.code || w.ward_code || ''),
+        name: w.name || w.ward_name || '',
+      })).filter(w => w.name);
     }
+
     const wards = wardsCache[provinceCode];
+    if (!wards.length) throw new Error('Không có dữ liệu phường/xã');
+
     wardSel.innerHTML = '<option value="">-- Chọn phường/xã --</option>' +
       wards.map(w => `<option value="${w.code}">${w.name}</option>`).join('');
-    wardSel.disabled  = false;
+    wardSel.disabled = false;
     if (preselect) wardSel.value = preselect;
+
   } catch (err) {
-    wardSel.innerHTML = '<option value="">Không tải được dữ liệu</option>';
+    wardSel.innerHTML = '<option value="">-- Không tải được, thử lại --</option>';
     wardSel.disabled  = false;
-    console.warn('Ward API error:', err);
+    // Xóa cache để lần sau thử lại
+    delete wardsCache[provinceCode];
+    console.warn('Ward load error:', err.message);
   }
 }
 
