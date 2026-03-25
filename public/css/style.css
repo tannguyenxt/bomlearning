@@ -179,7 +179,7 @@ body {
 }
 .quiz-progress-info { font-family: 'Baloo 2', cursive; font-size: 1.1rem; font-weight: 700; }
 .quiz-subject-label { font-size: 0.9rem; opacity: 0.9; text-align: center; }
-.timer-display { font-family: 'Baloo 2', cursive; font-size: 1rem; font-weight: 700; }
+.timer-display { font-family: 'Baloo 2', cursive; font-size: 1rem; font-weight: 700; display: flex; align-items: center; gap: 0.3rem; }
 .timer-display.warning { color: var(--accent2); animation: pulse 1s infinite; }
 .timer-display.danger { color: #FF6B6B; animation: pulse 0.5s infinite; }
 @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.5; } }

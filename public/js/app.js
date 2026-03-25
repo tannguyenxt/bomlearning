@@ -108,14 +108,17 @@ function startQuiz() {
 
   // Timer
   clearInterval(timerInterval);
+  timerInterval = null;
   const timeSetting = parseInt(document.getElementById('time-limit').value);
   timeLeft = timeSetting;
+  const timerEl = document.getElementById('timer-display');
   if (timeLeft > 0) {
     updateTimerDisplay();
+    timerEl.style.display = 'flex';
+    timerEl.className = 'timer-display';  // reset warning/danger class
     timerInterval = setInterval(tickTimer, 1000);
-    document.getElementById('timer-display').style.display = 'flex';
   } else {
-    document.getElementById('timer-display').style.display = 'none';
+    timerEl.style.display = 'none';
   }
 
   showScreen('quiz');
@@ -127,15 +130,23 @@ function startQuiz() {
 function tickTimer() {
   timeLeft--;
   updateTimerDisplay();
-  if (timeLeft <= 0) { clearInterval(timerInterval); submitQuiz(); }
   const timerEl = document.getElementById('timer-display');
-  if (timeLeft <= 60) timerEl.className = 'timer-display danger';
+  // Cập nhật màu sắc cảnh báo
+  if (timeLeft <= 60)       timerEl.className = 'timer-display danger';
   else if (timeLeft <= 180) timerEl.className = 'timer-display warning';
+  else                      timerEl.className = 'timer-display';
+  // Hết giờ: auto nộp bài, không hỏi confirm
+  if (timeLeft <= 0) {
+    clearInterval(timerInterval);
+    timerInterval = null;
+    submitQuizTimeUp(); // gọi riêng để không show confirm
+  }
 }
 
 function updateTimerDisplay() {
-  const m = Math.floor(timeLeft / 60).toString().padStart(2, '0');
-  const s = (timeLeft % 60).toString().padStart(2, '0');
+  const t = Math.max(0, timeLeft);
+  const m = Math.floor(t / 60).toString().padStart(2, '0');
+  const s = (t % 60).toString().padStart(2, '0');
   document.getElementById('timer-text').textContent = `${m}:${s}`;
 }
 
@@ -217,14 +228,30 @@ function prevQuestion() {
 function goToQuestion(idx) { currentIdx = idx; renderQuestion(); }
 
 // ── SUBMIT & RESULTS ─────────────────────────────────────────────────────────
+// Hết giờ: auto nộp không hỏi
+function submitQuizTimeUp() {
+  clearInterval(timerInterval);
+  timerInterval = null;
+  showToast('⏰ Hết giờ! Bài được tự động nộp.', 'info');
+  setTimeout(() => processResult(), 800); // delay nhỏ để toast hiện
+}
+
 function submitQuiz() {
   clearInterval(timerInterval);
+  timerInterval = null;
   const unanswered = userAnswers.filter(a => a === -1).length;
   if (unanswered > 0) {
     const confirmed = confirm(`Em còn ${unanswered} câu chưa trả lời. Vẫn nộp bài không?`);
-    if (!confirmed) return;
+    if (!confirmed) {
+      // Khởi động lại timer nếu còn thời gian
+      if (timeLeft > 0) timerInterval = setInterval(tickTimer, 1000);
+      return;
+    }
   }
+  processResult();
+}
 
+function processResult() {
   const correct = quizQuestions.filter((q, i) => userAnswers[i] === q.correctDisplayIndex).length;
   const total = quizQuestions.length;
   const pct = Math.round((correct / total) * 100);
@@ -255,7 +282,7 @@ function submitQuiz() {
   // Save to leaderboard
   saveScore(name, correct, total, pct, elapsed);
   document.getElementById('review-panel').style.display = 'none';
-}
+} // end processResult
 
 function showReview() {
   const panel = document.getElementById('review-panel');
